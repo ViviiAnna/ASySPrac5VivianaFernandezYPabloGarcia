@@ -1,0 +1,278 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>RPL05: Series de Fourier en tiempo continuo</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-11-23"><meta name="DC.source" content="ASySPrac5VivianaFernandezYPabloGarcia.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>RPL05: Series de Fourier en tiempo continuo</h1><!--introduction--><p>Fernandez Santana Viviana Elizabeth</p><p>Garc&iacute;a Morales Pablo</p><p>Grupo: 2MV1</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Objetivos</a></li><li><a href="#3">Introducci&oacute;n</a></li><li><a href="#5">Ejemplo 6.1</a></li><li><a href="#8">Ejemplo 6.2</a></li><li><a href="#11">Ejemplo 6.4</a></li><li><a href="#14">Ejercicio 6.5</a></li></ul></div><h2 id="1">Objetivos</h2><div><ul><li>Realizar gr&aacute;ficas de series de Fourier exponenciales y trigonom&eacute;tricas en tiempo continuo</li><li>Manipulaci&oacute;n de instrucciones en MATLAB</li><li>Calculo n&uacute;merico de los coeficientes de Fourier</li></ul></div><h2 id="3">Introducci&oacute;n</h2><p>Podemos calcular Dn num&eacute;ricamente mediante el uso de la DFT (la transformada discreta de Fourier analizada en la Secci&oacute;n 8.5), que utiliza las muestras de una se&ntilde;al peri&oacute;dica x (t) durante un per&iacute;odo. El intervalo de muestreo es de T segundos. Por lo tanto, hay N0 = T0 / T n&uacute;mero de muestras en un per&iacute;odo T0. Para encontrar la relaci&oacute;n entre Dn y las muestras de x (t), considere la ecuaci&oacute;n.</p><p><a href="<im1.jpg">&lt;im1.jpg</a>&gt; (6.96) donde x (kT) es la kesima muestra de x (t) y</p><p><a href="<im2.jpg">&lt;im2.jpg</a>&gt; ( 6.97)</p><p>En la pr&aacute;ctica, es imposible hacer que T ? 0 calcule el lado derecho de la ecuaci&oacute;n. (6.96). Podemos hacer T peque&ntilde;a, pero no cero, lo que har&aacute; que los datos aumenten sin l&iacute;mite. Por lo tanto, ignoraremos el l&iacute;mite de T en la ecuaci&oacute;n. (6.96) con el entendimiento impl&iacute;cito de que T es razonablemente peque&ntilde;o El valor distinto de cero T dar&aacute; como resultado alg&uacute;n error de c&aacute;lculo, que es inevitable en cualquier evaluaci&oacute;n num&eacute;rica de una integral. los el error resultante de una T distinta de cero se denomina error de aliasing o solapamiento. Por lo tanto, podemos expresar la ecuaci&oacute;n. (6.96) como</p><p><a href="<im4.jpg">&lt;im4.jpg</a>&gt;         (6.98a)</p><p>Ahora, desde la ec. (6.97), ?0N0 = 2?. Por lo tanto, e^(j?0 (k + N 0)) = e^(j?0) k y de la ecuaci&oacute;n., se deduce que</p><p><a href="<im3.jpg">&lt;im3.jpg</a>&gt;            (6.98b)</p><p>La propiedad de periodicidad Dn + N0 = Dn significa que m&aacute;s all&aacute; de n = N0 / 2, los coeficientes representan los valores para n negativo. Por ejemplo, cuando N0 = 32, D17 = D ? 15, D18 = D-14, ..., D31 = D ? 1. El ciclo se repite de nuevo desde n = 32 en. Podemos usar la FFT eficiente (la transformada r&aacute;pida de Fourier ) para calcular el lado derecho de la ecuaci&oacute;n. Nosotros Usaremos MATLAB para implementar el algoritmo FFT. Para este prop&oacute;sito, necesitamos muestras de x (t) en un per&iacute;odo que comienza en t = 0. En este Algoritmo, tambi&eacute;n es preferible (aunque no necesario) que N0 sea una potencia de 2, es decir N0 = 2m, donde m es un n&uacute;mero entero</p><h2 id="5">Ejemplo 6.1</h2><p>La funci&oacute;n es: <img src="ASySPrac5VivianaFernandezYPabloGarcia_eq06621496226828313716.png" alt="$$ f(t)= e^{-t/2} $$" style="width:73px;height:18px;"></p><p>Con un intervalo de: <img src="ASySPrac5VivianaFernandezYPabloGarcia_eq00847910016179013638.png" alt="$$ 0<t<\pi $$" style="width:60px;height:11px;"></p><p>Su serie es:</p><p><img src="ASySPrac5VivianaFernandezYPabloGarcia_eq04727348430906091905.png" alt="$$ x(t)= 0.504+ \frac{4}{\pi} \sum_{n=1}^{\infty}\frac{1}{16n^{2} +1}\left[(1-\frac{cos(2\pi n)}{e^{\pi/2}})cos(2nt) + (4n-\frac{4ncos(2\pi n)}{e^{\pi/2}})sin(2nt)\right] $$" style="width:550px;height:41px;"></p><p>Por ende los valores que se introducen a la serie de fourier para 4 armonicos son:</p><pre class="codeinput">d0=0.504;
+dn=@(n) 0.504/(1+4*n*j);
+t0=0;
+tf=pi;
+f=@(t) exp(-t/2);
+armo=4;
+a=-7;
+b=7;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_01.png" alt=""> <img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_02.png" alt=""> <p>Para 15 armonicos:</p><pre class="codeinput">armo=15;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_03.png" alt=""> <img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_04.png" alt=""> <h2 id="8">Ejemplo 6.2</h2><p>La funci&oacute;n es:</p><p><img src="ASySPrac5VivianaFernandezYPabloGarcia_eq09168568296304179494.png" alt="$$ f(t)= 6t , \frac{-1}{2}\leq t\leq \frac{1}{2} $$" style="width:139px;height:30px;"></p><p><img src="ASySPrac5VivianaFernandezYPabloGarcia_eq03941999731570593873.png" alt="$$ 6(-t-1) , -1\leq t\leq \frac{-1}{2} $$" style="width:151px;height:30px;"></p><p><img src="ASySPrac5VivianaFernandezYPabloGarcia_eq09909208951862921584.png" alt="$$ 6(-t+1) , \frac{1}{2}\leq t\leq 1 $$" style="width:129px;height:30px;"></p><p>Con un intervalo de: <img src="ASySPrac5VivianaFernandezYPabloGarcia_eq09049332225107960674.png" alt="$$ -1<t<1 $$" style="width:69px;height:11px;"></p><p>Su serie es:</p><p><img src="ASySPrac5VivianaFernandezYPabloGarcia_eq11091300364450824231.png" alt="$$ x(t)= \frac{24}{\pi^2} \sum_{n=1}^{\infty}\frac{1}{n^{2}}sin(\frac{\pi n}{2})sin(\pi nt) $$" style="width:214px;height:41px;"></p><p>Por ende los valores que se introducen a la serie de fourier para 4 armonicos son:</p><pre class="codeinput">d0=0;
+dn=@(n) -(12*sin(pi*n/2))*j/((n^2)*(pi^2));
+t0=-1;
+tf=1;
+f=@(t) (6.*(-t-1)).*((t&gt;=-1)&amp;(t&lt;(-1/2)))+(6.*t).*((t&gt;=(-1/2))&amp;(t&lt;(1/2)))+(6.*(1-t)).*((t&gt;=(1/2))&amp;(t&lt;1));
+armo=4;
+a=-7;
+b=7;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_05.png" alt=""> <img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_06.png" alt=""> <p>Para 15 armonicos:</p><pre class="codeinput">armo=15;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_07.png" alt=""> <img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_08.png" alt=""> <h2 id="11">Ejemplo 6.4</h2><p>La funci&oacute;n es:</p><p><img src="ASySPrac5VivianaFernandezYPabloGarcia_eq00242617082218356430.png" alt="$$ f(t)= 0 , -\pi\leq t\leq \frac{-\pi}{2} $$" style="width:145px;height:26px;"></p><p><img src="ASySPrac5VivianaFernandezYPabloGarcia_eq02516869597499534384.png" alt="$$ 1 , \frac{-\pi}{2}\leq t\leq \frac{\pi}{2} $$" style="width:92px;height:26px;"></p><p><img src="ASySPrac5VivianaFernandezYPabloGarcia_eq18305252343235543217.png" alt="$$ 0 , \frac{\pi}{2}\leq t\leq \pi $$" style="width:78px;height:26px;"></p><p>Con un intervalo de: <img src="ASySPrac5VivianaFernandezYPabloGarcia_eq03040200827477432636.png" alt="$$ -\pi<t<pi $$" style="width:75px;height:14px;"></p><p>Su serie es:</p><p><img src="ASySPrac5VivianaFernandezYPabloGarcia_eq10350457602548737543.png" alt="$$ x(t)= \frac{1}{2}+\frac{2}{\pi} \sum_{n=1}^{\infty}\frac{1}{n}sin(\frac{\pi n}{2})cos(nt) $$" style="width:222px;height:41px;"></p><p>Por ende los valores que se introducen a la serie de fourier para 4 armonicos son:</p><pre class="codeinput">d0=0.5;
+dn=@(n) sin((pi*n)/2)/(pi*n);
+t0=-pi;
+tf=pi;
+f=@(t) (0).*((t&gt;=-(pi))&amp;(t&lt;(-pi/2)))+(1).*((t&gt;=-(pi/2))&amp;(t&lt;(pi/2)))+(0).*((t&gt;=-(pi/2))&amp;(t&lt;(pi)));
+armo=4;
+a=-7;
+b=7;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_09.png" alt=""> <img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_10.png" alt=""> <p>Para 15 armonicos:</p><pre class="codeinput">armo=15;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_11.png" alt=""> <img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_12.png" alt=""> <h2 id="14">Ejercicio 6.5</h2><p>La funci&oacute;n es:</p><p><img src="ASySPrac5VivianaFernandezYPabloGarcia_eq17978734533032295678.png" alt="$$ f(t)= sin(t) $$" style="width:81px;height:15px;"></p><p>Con un intervalo de: <img src="ASySPrac5VivianaFernandezYPabloGarcia_eq11238779596582325393.png" alt="$$ 0<t<pi $$" style="width:63px;height:14px;"></p><p>Su serie es:</p><p><img src="ASySPrac5VivianaFernandezYPabloGarcia_eq08953259084077209524.png" alt="$$ x(t)= \frac{2}{\pi} \sum_{n=1}^{\infty}\frac{1}{1-4n^2}e^{j2nt} $$" style="width:161px;height:41px;"></p><p>Por ende los valores que se introducen a la serie de fourier para 4 armonicos son:</p><pre class="codeinput">d0=0;
+dn=@(n) (1/(1-(4*(n^2))))*(2/pi);
+t0=0;
+tf=pi;
+f=@(t) sin(t);
+armo=4;
+a=-7;
+b=7;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_13.png" alt=""> <img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_14.png" alt=""> <p>Para 15 armonicos:</p><pre class="codeinput">armo=15;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre><img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_15.png" alt=""> <img vspace="5" hspace="5" src="ASySPrac5VivianaFernandezYPabloGarcia_16.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% RPL05: Series de Fourier en tiempo continuo
+% Fernandez Santana Viviana Elizabeth
+%
+% García Morales Pablo
+%
+% Grupo: 2MV1
+
+%%% Objetivos
+% * Realizar gráficas de series de Fourier exponenciales y trigonométricas en tiempo continuo
+% * Manipulación de instrucciones en MATLAB
+% * Calculo númerico de los coeficientes de Fourier
+%%
+%%% Introducción
+% Podemos calcular Dn numéricamente mediante el uso de la DFT (la transformada discreta de Fourier analizada en la Sección 8.5), que utiliza las muestras de
+% una señal periódica x (t) durante un período. El intervalo de muestreo es de T segundos. Por lo tanto, hay N0 = T0 / T número de muestras en un período
+% T0. Para encontrar la relación entre Dn y las muestras de x (t), considere la ecuación.
+% 
+% <<im1.jpg>>   
+% (6.96)
+% donde x (kT) es la kesima muestra de x (t) y
+% 
+% <<im2.jpg>>    
+% ( 6.97)
+% 
+% En la práctica, es imposible hacer que T ? 0 calcule el lado derecho de la ecuación. (6.96). Podemos hacer T pequeña, pero no cero, lo que hará
+% que los datos aumenten sin límite. Por lo tanto, ignoraremos el límite de T en la ecuación. (6.96) con el entendimiento implícito de que T es
+% razonablemente pequeño El valor distinto de cero T dará como resultado algún error de cálculo, que es inevitable en cualquier evaluación numérica de una integral. los
+% el error resultante de una T distinta de cero se denomina error de aliasing o solapamiento. Por lo tanto, podemos expresar la ecuación.
+% (6.96) como
+%
+% <<im4.jpg>>         (6.98a)
+%
+% Ahora, desde la ec. (6.97), ?0N0 = 2?. Por lo tanto, e^(j?0 (k + N 0)) = e^(j?0) k y de la ecuación., se deduce que
+%
+% <<im3.jpg>>            (6.98b)
+%
+% La propiedad de periodicidad Dn + N0 = Dn significa que más allá de n = N0 / 2, los coeficientes representan los valores para n negativo. Por ejemplo, cuando
+% N0 = 32, D17 = D ? 15, D18 = D-14, ..., D31 = D ? 1. El ciclo se repite de nuevo desde n = 32 en.
+% Podemos usar la FFT eficiente (la transformada rápida de Fourier ) para calcular el lado derecho de la ecuación. Nosotros
+% Usaremos MATLAB para implementar el algoritmo FFT. Para este propósito, necesitamos muestras de x (t) en un período que comienza en t = 0. En este
+% Algoritmo, también es preferible (aunque no necesario) que N0 sea una potencia de 2, es decir N0 = 2m, donde m es un número entero
+% 
+%
+
+%%
+%%% Ejemplo 6.1
+% La función es:
+% $$ f(t)= e^{-t/2} $$
+%
+% Con un intervalo de:
+% $$ 0<t<\pi $$
+%
+%
+% Su serie es: 
+%
+% $$ x(t)= 0.504+ \frac{4}{\pi} \sum_{n=1}^{\infty}\frac{1}{16n^{2} +1}\left[(1-\frac{cos(2\pi n)}{e^{\pi/2}})cos(2nt) + (4n-\frac{4ncos(2\pi n)}{e^{\pi/2}})sin(2nt)\right] $$
+%
+% Por ende los valores que se introducen a la serie de fourier para 4 armonicos son:
+d0=0.504;
+dn=@(n) 0.504/(1+4*n*j);
+t0=0;
+tf=pi;
+f=@(t) exp(-t/2);
+armo=4; 
+a=-7;
+b=7;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+
+%%
+% Para 15 armonicos:
+armo=15;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+%%
+%%% Ejemplo 6.2
+% La función es:
+%
+% $$ f(t)= 6t , \frac{-1}{2}\leq t\leq \frac{1}{2} $$ 
+%
+% $$ 6(-t-1) , -1\leq t\leq \frac{-1}{2} $$
+%
+% $$ 6(-t+1) , \frac{1}{2}\leq t\leq 1 $$
+%
+% Con un intervalo de:
+% $$ -1<t<1 $$
+%
+% Su serie es: 
+%
+% $$ x(t)= \frac{24}{\pi^2} \sum_{n=1}^{\infty}\frac{1}{n^{2}}sin(\frac{\pi n}{2})sin(\pi nt) $$
+%
+% Por ende los valores que se introducen a la serie de fourier para 4 armonicos son:
+d0=0;
+dn=@(n) -(12*sin(pi*n/2))*j/((n^2)*(pi^2));
+t0=-1;
+tf=1;
+f=@(t) (6.*(-t-1)).*((t>=-1)&(t<(-1/2)))+(6.*t).*((t>=(-1/2))&(t<(1/2)))+(6.*(1-t)).*((t>=(1/2))&(t<1));
+armo=4; 
+a=-7;
+b=7;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+%%
+% Para 15 armonicos:
+armo=15;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+%%
+%%% Ejemplo 6.4
+% La función es:
+%
+% $$ f(t)= 0 , -\pi\leq t\leq \frac{-\pi}{2} $$ 
+%
+% $$ 1 , \frac{-\pi}{2}\leq t\leq \frac{\pi}{2} $$
+%
+% $$ 0 , \frac{\pi}{2}\leq t\leq \pi $$
+%
+% Con un intervalo de:
+% $$ -\pi<t<pi $$
+%
+% Su serie es: 
+%
+% $$ x(t)= \frac{1}{2}+\frac{2}{\pi} \sum_{n=1}^{\infty}\frac{1}{n}sin(\frac{\pi n}{2})cos(nt) $$
+%
+% Por ende los valores que se introducen a la serie de fourier para 4 armonicos son:
+d0=0.5;
+dn=@(n) sin((pi*n)/2)/(pi*n);
+t0=-pi;
+tf=pi;
+f=@(t) (0).*((t>=-(pi))&(t<(-pi/2)))+(1).*((t>=-(pi/2))&(t<(pi/2)))+(0).*((t>=-(pi/2))&(t<(pi)));
+armo=4; 
+a=-7;
+b=7;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+%%
+% Para 15 armonicos:
+armo=15;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+%%
+%%% Ejercicio 6.5
+% La función es:
+%
+% $$ f(t)= sin(t) $$
+%
+% Con un intervalo de:
+% $$ 0<t<pi $$
+%
+% Su serie es: 
+%
+% $$ x(t)= \frac{2}{\pi} \sum_{n=1}^{\infty}\frac{1}{1-4n^2}e^{j2nt} $$
+%
+% Por ende los valores que se introducen a la serie de fourier para 4 armonicos son:
+d0=0;
+dn=@(n) (1/(1-(4*(n^2))))*(2/pi);
+t0=0;
+tf=pi;
+f=@(t) sin(t);
+armo=4; 
+a=-7;
+b=7;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+%%
+% Para 15 armonicos:
+armo=15;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+
+##### SOURCE END #####
+--></body></html>
